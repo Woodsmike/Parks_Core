@@ -14,6 +14,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
+using ParksAPI.ParkMapper;
 
 namespace ParksAPI
 {
@@ -33,6 +35,7 @@ namespace ParksAPI
                 (options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddScoped<INationalParkRepository, NationalParkRepository>();
+            services.AddAutoMapper(typeof(ParkMappings));
             services.AddControllers();
         }
 
