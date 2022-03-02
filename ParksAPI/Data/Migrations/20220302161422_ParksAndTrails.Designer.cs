@@ -10,8 +10,8 @@ using ParksAPI.Data;
 namespace ParksAPI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220228201835_AddNationalParkToDb")]
-    partial class AddNationalParkToDb
+    [Migration("20220302161422_ParksAndTrails")]
+    partial class ParksAndTrails
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -44,6 +44,45 @@ namespace ParksAPI.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("NationalParks");
+                });
+
+            modelBuilder.Entity("ParksAPI.Models.Trail", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Difficulty")
+                        .HasColumnType("int");
+
+                    b.Property<double>("Distance")
+                        .HasColumnType("float");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("NationalParkId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NationalParkId");
+
+                    b.ToTable("Trails");
+                });
+
+            modelBuilder.Entity("ParksAPI.Models.Trail", b =>
+                {
+                    b.HasOne("ParksAPI.Models.NationalPark", "NationalPark")
+                        .WithMany()
+                        .HasForeignKey("NationalParkId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

@@ -9,6 +9,9 @@ namespace ParksAPI.ParkMapper
         public ParkMappings()
         {
             CreateMap<NationalPark, NationalParkDto>().ReverseMap();
+            CreateMap<Trail, TrailDto>().ReverseMap();
+            CreateMap<Trail, TrailUpdateDto>().ReverseMap();
+            CreateMap<Trail, TrailCreateDto>().ReverseMap();
         }
     }
 }
