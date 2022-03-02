@@ -21,6 +21,10 @@ namespace ParksAPI.Controllers
             _mapper = mapper;
         }
 
+        /// <summary>
+        /// Get list of national parks
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public IActionResult GetNationalParks()
         {
@@ -34,6 +38,11 @@ namespace ParksAPI.Controllers
             return Ok(objDto);
         }
 
+        /// <summary>
+        /// Get national park by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet]
         [Route("{id}", Name = "GetNationalPark")]
         public IActionResult GetNationalPark(int id)
@@ -49,6 +58,11 @@ namespace ParksAPI.Controllers
             return Ok(objDto);
         }
 
+        /// <summary>
+        /// Create national park
+        /// </summary>
+        /// <param name="nationalParkDto"></param>
+        /// <returns></returns>
         [HttpPost]
         public IActionResult CreateNationalPark([FromBody] NationalParkDto nationalParkDto)
         {
@@ -74,6 +88,12 @@ namespace ParksAPI.Controllers
             return CreatedAtRoute("GetNationalPark", new { id = nationalParkObj.Id }, nationalParkObj);
         }
 
+        /// <summary>
+        /// Update national park
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="nationalParkDto"></param>
+        /// <returns></returns>
         [HttpPatch]
         [Route("{id}", Name = "UpdateNationalPark")]
         public IActionResult UpdateNationalPark(int id, [FromBody] NationalParkDto nationalParkDto)
@@ -95,6 +115,11 @@ namespace ParksAPI.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Delete national park
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpDelete]
         [Route("{id}", Name = "DeleteNationalPark")]
         public IActionResult DeleteNationalPark(int id)

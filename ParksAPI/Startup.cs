@@ -16,6 +16,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using ParksAPI.ParkMapper;
+using System.Reflection;
+using System.IO;
 
 namespace ParksAPI
 {
@@ -44,6 +46,9 @@ namespace ParksAPI
                         Title = "ParkAPI",
                         Version = "1"
                     });
+                var xmlCommentFile = $"{Assembly.GetExecutingAssembly().GetName().Name }.xml";
+                var cmlCommentsFullPath = Path.Combine(AppContext.BaseDirectory, xmlCommentFile);
+                options.IncludeXmlComments(cmlCommentsFullPath);
             });
             services.AddControllers();
             
