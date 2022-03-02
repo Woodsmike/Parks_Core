@@ -36,7 +36,17 @@ namespace ParksAPI
 
             services.AddScoped<INationalParkRepository, NationalParkRepository>();
             services.AddAutoMapper(typeof(ParkMappings));
+            services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("ParkOpenAPISpec",
+                    new Microsoft.OpenApi.Models.OpenApiInfo()
+                    {
+                        Title = "ParkAPI",
+                        Version = "1"
+                    });
+            });
             services.AddControllers();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,9 +59,17 @@ namespace ParksAPI
 
             app.UseHttpsRedirection();
 
+            app.UseSwagger();
+            app.UseSwaggerUI(options =>
+            {
+                options.SwaggerEndpoint("/swagger/ParkOpenAPISpec/swagger.json", "Park API");
+                options.RoutePrefix = "";
+            });
+
             app.UseRouting();
 
             app.UseAuthorization();
+            
 
             app.UseEndpoints(endpoints =>
             {
