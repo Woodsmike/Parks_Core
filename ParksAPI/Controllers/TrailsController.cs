@@ -8,7 +8,8 @@ using System.Collections.Generic;
 
 namespace ParksAPI.Controllers
 {
-    [Route("api/Trails")]
+    [Route("api/v{version:apiVersion}/trails")]
+    //[Route("api/Trails")]
     [ApiController]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public class TrailsController : Controller
@@ -64,6 +65,38 @@ namespace ParksAPI.Controllers
             return Ok(objDto);
         }
 
+
+        /// <summary>
+        /// Get trail by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("[action]/{id}", Name = "GetTrailInNationalPark")]
+        [ProducesResponseType(200, Type = typeof(TrailDto))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesDefaultResponseType]
+        public IActionResult GetTrailInNationalPark(int id)
+        {
+            var objList = _trailRepo.GetTrailsInNationalPark(id);
+
+            if (objList == null)
+            {
+                return NotFound("Trail does not exist");
+            }
+
+            var objDto = new List<TrailDto>();
+            foreach (var obj in objList)
+            {
+                objDto.Add(_mapper.Map<TrailDto>(obj));
+            }
+
+
+            return Ok(objDto);
+        }
+
+
+
         /// <summary>
         /// Create trail
         /// </summary>
@@ -95,7 +128,7 @@ namespace ParksAPI.Controllers
                 return StatusCode(500, ModelState);
             }
 
-            return CreatedAtRoute("GetTrail", new { id = trailObj.Id }, trailObj);
+            return CreatedAtRoute("GetTrail", new { id = trailObj.Id , version = HttpContext.GetRequestedApiVersion().ToString() }, trailObj);
         }
 
         /// <summary>

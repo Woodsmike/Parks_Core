@@ -39,6 +39,12 @@
             <param name="id"></param>
             <returns></returns>
         </member>
+        <member name="M:ParksAPI.Controllers.NationalParksV2Controller.GetNationalParks">
+            <summary>
+            Get list of national parks
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:ParksAPI.Controllers.TrailsController.GetTails">
             <summary>
             Get list of trails
@@ -46,6 +52,13 @@
             <returns></returns>
         </member>
         <member name="M:ParksAPI.Controllers.TrailsController.GetTrail(System.Int32)">
+            <summary>
+            Get trail by id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ParksAPI.Controllers.TrailsController.GetTrailInNationalPark(System.Int32)">
             <summary>
             Get trail by id
             </summary>
